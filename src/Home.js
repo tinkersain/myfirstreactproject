@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./App.css";
 import logo from "./logo.svg";
 import { useState } from "react";
@@ -7,11 +7,18 @@ import { useState } from "react";
 
 // }
 const Home = () => {
+  const [time, setTime] = useState("65");
   const [data, setData] = useState("Hi");
   const handleClick = () => {
     if (data === "Hi") setData("Hello");
     else setData("Hi");
   };
+  useEffect(() => {
+    setTimeout(() => {
+      if (time === 0) setTime(65);
+      else setTime(time - 1);
+    }, 1000);
+  }, []);
   return (
     <div className="App">
       <header className="App-header">
@@ -27,7 +34,7 @@ const Home = () => {
         >
           Learn React
         </a>
-        <button onClick={handleClick}>Change Data</button>
+        <button onClick={handleClick}>{time}</button>
         <p>{data}</p>
       </header>
     </div>
