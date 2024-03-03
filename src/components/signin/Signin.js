@@ -16,7 +16,7 @@ const Signin = () => {
   };
 
   const handleSignin = () => {
-    navigate("/");
+    navigate("/Homepage");
   };
   return (
     <div className="main">
