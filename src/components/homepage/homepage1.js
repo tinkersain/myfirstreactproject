@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./homepage.css";
 
-const Homepage = () => {
+const Homepage22 = () => {
   const [arr, setarr] = useState([]);
   const [value, setvalue] = useState("");
   console.log(arr);
@@ -54,4 +54,4 @@ const Homepage = () => {
     </div>
   );
 };
-export default Homepage;
+export default Homepage22;
