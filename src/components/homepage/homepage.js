@@ -6,13 +6,16 @@ import { CiImport } from "react-icons/ci";
 import { HiOutlineTemplate } from "react-icons/hi";
 import { FaCalendarAlt } from "react-icons/fa";
 import { IoMdClose } from "react-icons/io";
+import FileData from "../../data.json";
 export default function Homepage() {
+  const name = FileData.users[0].name;
+  const stickyNotes = FileData.list[0].data;
   return (
     <div className="main-class">
       <div className="first-div">
         <img src="/images/logo.png" alt="logo" />
         <div className="name-div">
-          <i>Tanisha Kar's TO-DO LIST</i>
+          <i>{name}'s TO-DO LIST</i>
         </div>
       </div>
       <div className="second-div">
@@ -71,156 +74,35 @@ export default function Homepage() {
             </div>
           </div>
           <div className="bottom-part">
-            <div className="child-1">
-              <div className="title">
-                <div className="main-title">
-                  <h3>Untitled</h3>
+            {stickyNotes.map((item) => {
+              return (
+                <div className="child-1">
+                  <div className="title">
+                    <div className="main-title">
+                      <h3>{item.header}</h3>
+                    </div>
+                    <div className="close">
+                      <span
+                        style={{
+                          paddingLeft: "3%",
+                          fontSize: "x-large",
+                          cursor: "pointer",
+                        }}
+                      >
+                        <IoMdClose />
+                      </span>
+                    </div>
+                  </div>
+                  <div className="content-bottom">
+                    <ul>
+                      {item.content.map((li) => {
+                        return <li>{li}</li>;
+                      })}
+                    </ul>
+                  </div>
                 </div>
-                <div className="close">
-                  <span
-                    style={{
-                      paddingLeft: "3%",
-                      fontSize: "x-large",
-                    }}
-                  >
-                    <IoMdClose />
-                  </span>
-                </div>
-              </div>
-              <div className="content-bottom">
-                <ul>
-                  <li>Hello this is Tanisha</li>
-                  <li>Hello this is Tanisha</li>
-                  <li>Hello this is Tanisha</li>
-                  <li>Hello this is Tanisha</li>
-                </ul>
-              </div>
-            </div>
-            <div className="child-1">
-              <div className="title">
-                <div className="main-title">
-                  <h3>Untitled</h3>
-                </div>
-                <div className="close">
-                  <span
-                    style={{
-                      paddingLeft: "3%",
-                      fontSize: "x-large",
-                    }}
-                  >
-                    <IoMdClose />
-                  </span>
-                </div>
-              </div>
-              <div className="content-bottom">
-                <ul>
-                  <li>Hello this is Tanisha</li>
-                  <li>Hello this is Tanisha</li>
-                  <li>Hello this is Tanisha</li>
-                  <li>Hello this is Tanisha</li>
-                </ul>
-              </div>
-            </div>
-            <div className="child-1">
-              <div className="title">
-                <div className="main-title">
-                  <h3>Untitled</h3>
-                </div>
-                <div className="close">
-                  <span
-                    style={{
-                      paddingLeft: "3%",
-                      fontSize: "x-large",
-                    }}
-                  >
-                    <IoMdClose />
-                  </span>
-                </div>
-              </div>
-              <div className="content-bottom">
-                <ul>
-                  <li>Hello this is Tanisha</li>
-                  <li>Hello this is Tanisha</li>
-                  <li>Hello this is Tanisha</li>
-                  <li>Hello this is Tanisha</li>
-                </ul>
-              </div>
-            </div>
-            <div className="child-1">
-              <div className="title">
-                <div className="main-title">
-                  <h3>Untitled</h3>
-                </div>
-                <div className="close">
-                  <span
-                    style={{
-                      paddingLeft: "3%",
-                      fontSize: "x-large",
-                    }}
-                  >
-                    <IoMdClose />
-                  </span>
-                </div>
-              </div>
-              <div className="content-bottom">
-                <ul>
-                  <li>Hello this is Tanisha</li>
-                  <li>Hello this is Tanisha</li>
-                  <li>Hello this is Tanisha</li>
-                  <li>Hello this is Tanisha</li>
-                </ul>
-              </div>
-            </div>
-            <div className="child-1">
-              <div className="title">
-                <div className="main-title">
-                  <h3>Untitled</h3>
-                </div>
-                <div className="close">
-                  <span
-                    style={{
-                      paddingLeft: "3%",
-                      fontSize: "x-large",
-                    }}
-                  >
-                    <IoMdClose />
-                  </span>
-                </div>
-              </div>
-              <div className="content-bottom">
-                <ul>
-                  <li>Hello this is Tanisha</li>
-                  <li>Hello this is Tanisha</li>
-                  <li>Hello this is Tanisha</li>
-                  <li>Hello this is Tanisha</li>
-                </ul>
-              </div>
-            </div>
-            <div className="child-1">
-              <div className="title">
-                <div className="main-title">
-                  <h3>Untitled</h3>
-                </div>
-                <div className="close">
-                  <span
-                    style={{
-                      paddingLeft: "3%",
-                      fontSize: "x-large",
-                    }}
-                  >
-                    <IoMdClose />
-                  </span>
-                </div>
-              </div>
-              <div className="content-bottom">
-                <ul>
-                  <li>Hello this is Tanisha</li>
-                  <li>Hello this is Tanisha</li>
-                  <li>Hello this is Tanisha</li>
-                  <li>Hello this is Tanisha</li>
-                </ul>
-              </div>
-            </div>
+              );
+            })}
           </div>
         </div>
       </div>
