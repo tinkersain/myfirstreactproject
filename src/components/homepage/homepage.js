@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./homepage1.css";
 import { IoSearchSharp } from "react-icons/io5";
 import { FaTrashAlt } from "react-icons/fa";
@@ -9,7 +9,31 @@ import { IoMdClose } from "react-icons/io";
 import FileData from "../../data.json";
 export default function Homepage() {
   const name = FileData.users[0].name;
-  const stickyNotes = FileData.list[0].data;
+  const username = FileData.users[0].username;
+  const stickyNotes = FileData.list;
+  const [formData, setFormData] = useState({ header: "", content: "" });
+
+  const handleAdd = async () => {
+    const finalHeader = formData.header;
+    let finalContent = formData.content.split("\n"); // this is a list []
+    const finalData = {
+      username: username,
+      data: { header: finalHeader, content: finalContent },
+    };
+    await fetch("http://localhost:8080/list", {
+      method: "POST",
+      body: JSON.stringify(finalData),
+    })
+      .then((response) => {
+        alert("Note Successfully Added");
+        setFormData({ header: "", content: "" });
+      })
+      .catch((err) => {
+        console.log("Error : ", err);
+        alert("Error Occurred !!");
+      });
+  };
+  // console.log("formData", formData);
   return (
     <div className="main-class">
       <div className="first-div">
@@ -63,14 +87,33 @@ export default function Homepage() {
           <div className="top-part">
             <div className="child1">
               <div className="left-child">
-                <input type="text" placeholder="Untitled" />
+                <input
+                  type="text"
+                  placeholder="Untitled"
+                  value={formData.header}
+                  onChange={(e) => {
+                    setFormData((prev) => ({
+                      ...prev,
+                      header: e.target.value,
+                    }));
+                  }}
+                />
               </div>
               <div className="right-child">
-                <button>ADD</button>
+                <button onClick={handleAdd}>ADD</button>
               </div>
             </div>
             <div className="child2">
-              <textarea placeholder="Enter your task here..."></textarea>
+              <textarea
+                placeholder="Enter your task here..."
+                value={formData.content}
+                onChange={(e) => {
+                  setFormData((prev) => ({
+                    ...prev,
+                    content: e.target.value,
+                  }));
+                }}
+              ></textarea>
             </div>
           </div>
           <div className="bottom-part">
@@ -79,7 +122,7 @@ export default function Homepage() {
                 <div className="child-1">
                   <div className="title">
                     <div className="main-title">
-                      <h3>{item.header}</h3>
+                      <h3>{item.data.header}</h3>
                     </div>
                     <div className="close">
                       <span
@@ -95,7 +138,7 @@ export default function Homepage() {
                   </div>
                   <div className="content-bottom">
                     <ul>
-                      {item.content.map((li) => {
+                      {item.data.content.map((li) => {
                         return <li>{li}</li>;
                       })}
                     </ul>
