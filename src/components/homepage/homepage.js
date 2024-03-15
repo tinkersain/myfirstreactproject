@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./homepage1.css";
 import { IoSearchSharp } from "react-icons/io5";
 import { FaTrashAlt } from "react-icons/fa";
@@ -6,12 +6,16 @@ import { CiImport } from "react-icons/ci";
 import { HiOutlineTemplate } from "react-icons/hi";
 import { FaCalendarAlt } from "react-icons/fa";
 import { IoMdClose } from "react-icons/io";
+import { FaArrowAltCircleLeft } from "react-icons/fa";
+import { FaArrowAltCircleRight } from "react-icons/fa";
 import FileData from "../../data.json";
 export default function Homepage() {
   const name = FileData.users[0].name;
   const username = FileData.users[0].username;
   const stickyNotes = FileData.list;
   const [formData, setFormData] = useState({ header: "", content: "" });
+  const [start, setStart] = useState(0);
+  const [end, setEnd] = useState(2);
 
   const handleAdd = async () => {
     const finalHeader = formData.header;
@@ -34,6 +38,22 @@ export default function Homepage() {
       });
   };
   // console.log("formData", formData);
+  useEffect(() => {
+    setStart(0);
+    setEnd(2);
+  }, []);
+
+  const handleLeftPage = () => {
+    var length = stickyNotes.length;
+    setStart((start + 3) % length);
+    setEnd((end + 3) % length);
+  };
+
+  const handleRightPage = () => {
+    var length = stickyNotes.length;
+    setStart((start - 3 + length) % length);
+    setEnd((end - 3 + length) % length);
+  };
   return (
     <div className="main-class">
       <div className="first-div">
@@ -114,10 +134,18 @@ export default function Homepage() {
                   }));
                 }}
               ></textarea>
+              <div className="pagination">
+                <div className="left-page" onClick={handleLeftPage}>
+                  <FaArrowAltCircleLeft />
+                </div>
+                <div className="right-page" onClick={handleRightPage}>
+                  <FaArrowAltCircleRight />
+                </div>
+              </div>
             </div>
           </div>
           <div className="bottom-part">
-            {stickyNotes.map((item) => {
+            {stickyNotes.slice(start, end + 1).map((item) => {
               return (
                 <div className="child-1">
                   <div className="title">
